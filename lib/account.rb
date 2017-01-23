@@ -3,7 +3,7 @@ class Account
 	def initialize
 		@balance = OPENING_BALANCE
 		@transaction_log = []
-		new_transaction(nil, nil)
+		new_transaction
 	end
 
 	def check_balance
@@ -21,7 +21,7 @@ class Account
 	end
 
 	def print_statement
-		generate_statement
+		print generate_statement
 	end
 
 	private
@@ -31,7 +31,7 @@ class Account
 
 		attr_reader :balance
 
-		def new_transaction(type, amount)
+		def new_transaction(type = nil, amount = nil)
 			credit = format_value(amount) if type == :credit
 			debit = format_value(amount) if type == :debit
 			@transaction_log << { date: get_date, credit: credit, debit: debit, balance: check_balance }
@@ -49,7 +49,7 @@ class Account
 							"#{format_column(transaction[:debit])}|"\
 							"#{format_column(transaction[:balance])}\n"
 			}
-			print statement
+			statement
 		end
 
 		def statement_header
@@ -64,8 +64,7 @@ class Account
 
 		def format_column(data)
 			return data = " " * STATEMENT_COLUMN_WIDTH if data == nil
-			whitespace = STATEMENT_COLUMN_WIDTH - data.length if data.length < STATEMENT_COLUMN_WIDTH
-			data += " " * whitespace 
+			data.ljust(STATEMENT_COLUMN_WIDTH)
 		end
 
 end
