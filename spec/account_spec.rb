@@ -31,11 +31,18 @@ describe Account do
 													"23/01/2017|          |          |£0.00     \n"
 		end
 
-		it 'displays transactions a user makes' do
+		it 'displays deposit transactions a user makes' do
 			account.deposit(100.00)
 			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
 													"23/01/2017|          |          |£0.00     \n"\
 													"23/01/2017|£100.00   |          |£100.00   \n"
+		end
+
+		it 'displays withdraw transactions a user makes' do
+			account.withdraw(100.00)
+			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
+													"23/01/2017|          |          |£0.00     \n"\
+													"23/01/2017|          |£100.00   |-£100.00  \n"
 		end
 	end
 end
