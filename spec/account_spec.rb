@@ -17,5 +17,10 @@ describe Account do
 			account.deposit(100.00)
 			expect(account.check_balance).to eq 100.00
 		end
+
+		it 'allows a user to withdraw money' do
+			account.withdraw(100.00)
+			expect(account.check_balance).to eq -100.00
+		end
 	end
 end
