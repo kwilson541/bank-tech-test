@@ -31,22 +31,22 @@ describe Account do
 		end
 
 		it 'has an empty log on new accounts' do
-			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
-													"23/01/2017|          |          |£0.00     \n"
+			expect{account.print_statement}.to output("date      |credit    |debit     |balance   \n"\
+													"23/01/2017|          |          |£0.00     \n").to_stdout
 		end
 
 		it 'displays deposit transactions a user makes' do
 			account.deposit(100.00)
-			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
+			expect{account.print_statement}.to output("date      |credit    |debit     |balance   \n"\
 													"23/01/2017|          |          |£0.00     \n"\
-													"23/01/2017|£100.00   |          |£100.00   \n"
+													"23/01/2017|£100.00   |          |£100.00   \n").to_stdout
 		end
 
 		it 'displays withdraw transactions a user makes' do
 			account.withdraw(100.00)
-			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
+			expect{account.print_statement}.to output("date      |credit    |debit     |balance   \n"\
 													"23/01/2017|          |          |£0.00     \n"\
-													"23/01/2017|          |£100.00   |-£100.00  \n"
+													"23/01/2017|          |£100.00   |-£100.00  \n").to_stdout
 		end
 	end
 end
