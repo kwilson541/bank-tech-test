@@ -13,10 +13,12 @@ class Account
 
 	def deposit(amount)
 		@balance += amount
+		new_transaction("credit", amount)
 	end
 
 	def withdraw(amount)
 		@balance -= amount
+		new_transaction("debit", amount)
 	end
 
 	def print_statement
@@ -33,8 +35,8 @@ class Account
 		def new_transaction(type, amount)
 			credit = ""
 			debit = ""
-			credit = amount if type == "credit"
-			debit = amount if type == "debit"
+			credit = "£%.2f" % amount if type == "credit"
+			debit = "£%.2f" % amount if type == "debit"
 			@transaction_log << { date: get_date, credit: credit, debit: debit, balance: check_balance }
 		end
 
