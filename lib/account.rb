@@ -49,7 +49,7 @@ class Account
 							"#{format_column(transaction[:debit])}|"\
 							"#{format_column(transaction[:balance])}\n"
 			}
-			statement
+			print statement
 		end
 
 		def statement_header
