@@ -27,13 +27,11 @@ class Account
 	private
 
 		OPENING_BALANCE = 0
-		COLUMN_WIDTH = 10
+		STATEMENT_COLUMN_WIDTH = 10
 
 		attr_reader :balance
 
 		def new_transaction(type, amount)
-			credit = ""
-			debit = ""
 			credit = format_value(amount) if type == :credit
 			debit = format_value(amount) if type == :debit
 			@transaction_log << { date: get_date, credit: credit, debit: debit, balance: check_balance }
@@ -65,7 +63,8 @@ class Account
 		end
 
 		def format_column(data)
-			whitespace = COLUMN_WIDTH - data.length if data.length < COLUMN_WIDTH
+			return data = " " * STATEMENT_COLUMN_WIDTH if data == nil
+			whitespace = STATEMENT_COLUMN_WIDTH - data.length if data.length < STATEMENT_COLUMN_WIDTH
 			data += " " * whitespace 
 		end
 
