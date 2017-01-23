@@ -26,6 +26,10 @@ describe Account do
 
 	context 'logging transactions' do
 
+		before do
+			allow(Time).to receive(:now).and_return(Time.parse("23/01/2017"))
+		end
+
 		it 'has an empty log on new accounts' do
 			expect(account.print_statement).to eq "date      |credit    |debit     |balance   \n"\
 													"23/01/2017|          |          |£0.00     \n"
