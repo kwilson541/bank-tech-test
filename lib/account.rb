@@ -7,8 +7,7 @@ class Account
 	end
 
 	def check_balance
-		return "£%.2f" % @balance if @balance >= OPENING_BALANCE
-		"-£%.2f" % @balance.abs
+		format_value(@balance)
 	end
 
 	def deposit(amount)
@@ -35,8 +34,8 @@ class Account
 		def new_transaction(type, amount)
 			credit = ""
 			debit = ""
-			credit = "£%.2f" % amount if type == "credit"
-			debit = "£%.2f" % amount if type == "debit"
+			credit = format_value(amount) if type == "credit"
+			debit = format_value(amount) if type == "debit"
 			@transaction_log << { date: get_date, credit: credit, debit: debit, balance: check_balance }
 		end
 
@@ -58,6 +57,11 @@ class Account
 		def statement_header
 			"#{format_column("date")}|#{format_column("credit")}|"\
 			"#{format_column("debit")}|#{format_column("balance")}\n"
+		end
+
+		def format_value(amount)
+			return "£%.2f" % amount if amount >= 0
+			"-£%.2f" % amount.abs
 		end
 
 		def format_column(data)
